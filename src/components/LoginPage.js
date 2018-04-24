@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { authenticate } from './../api';
+import { attempt } from './../auth';
 
-export default class extends Component {
+export default class LoginPage extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -13,8 +13,13 @@ export default class extends Component {
   login = async (e) => {
     e.preventDefault();
     let { username, password } = this.state;
-    await authenticate(username, password);
-    this.props.history.push('/genres');
+    try {
+      await attempt(username, password);
+      this.props.onLogin();
+      this.props.history.push('/genres');
+    } catch (e) {
+      this.setState({ error: 'Invalid Credentials' });
+    }
   }
 
   handleUsernameChange = (e) => {
@@ -45,6 +50,7 @@ export default class extends Component {
             onChange={this.handlePasswordChange} />
         </div>
         <button type="submit">Login</button>
+        {this.state.error}
       </form>
     );
   }

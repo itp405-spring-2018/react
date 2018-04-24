@@ -21,15 +21,3 @@ export async function createGenre(name) {
 
   return response.data;
 }
-
-export async function authenticate(username, password) {
-  let { data } = await axios.post(`${ENDPOINT}/oauth/token`, {
-    username,
-    password,
-    grant_type: 'password'
-  });
-
-  let { access_token: token } = data;
-  localStorage.setItem('token', token);
-  return data;
-}
