@@ -1,65 +1,23 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
-import GenreList from './GenreList';
-import axios from 'axios';
+import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+import GenresPage from './components/GenresPage';
+import LoginPage from './components/LoginPage';
 
-const ENDPOINT = process.env.REACT_APP_ENDPOINT;
-
-class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      genres: [],
-      newGenreName: ''
-    };
-  }
-  async componentDidMount() {
-    let response = await axios.get(`${ENDPOINT}/api/genres`);
-    let genres = response.data;
-    this.setState({
-      genres
-    });
-  }
-  handleChange = (e) => {
-    this.setState({
-      newGenreName: e.target.value
-    });
-  }
-  createGenre = async (e) => {
-    e.preventDefault();
-    let name = this.state.newGenreName;
-    let response = await axios.post(`${ENDPOINT}/api/genres`, { name });
-
-    let newGenre = response.data;
-    this.setState({
-      genres: this.state.genres.concat(newGenre),
-      newGenreName: ''
-    });
-  }
+export default class App extends Component {
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <main>
-          <span>{this.state.genres.length} Genre(s)</span>
+      <Router>
+        <div>
+          <ul>
+            <li><Link to="/">Login</Link></li>
+            <li><Link to="/genres">Genres</Link></li>
+            <li><Link to="/genres/new">Add Genre</Link></li>
+          </ul>
 
-          <form onSubmit={this.createGenre}>
-            <input
-              type="text"
-              value={this.state.newGenreName}
-              onChange={this.handleChange} />
-            <button type="submit">Add Genre</button>
-          </form>
-
-          <GenreList genres={this.state.genres} />
-        </main>
-      </div>
+          <Route exact path="/" component={LoginPage} />
+          <Route path="/genres" component={GenresPage} />
+        </div>
+      </Router>
     );
   }
 }
-
-export default App;

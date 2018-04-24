@@ -11,9 +11,12 @@ export default class extends Component {
     });
 
     return (
-      <ul>
-        {listItems}
-      </ul>
+      <div>
+        <span>{this.props.genres.length} Genre(s)</span>
+        <ul>
+          {listItems}
+        </ul>
+      </div>
     );
   }
 }
