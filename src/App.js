@@ -1,12 +1,9 @@
 import React, { Component } from 'react';
-import { Router, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import GenresPage from './components/GenresPage';
 import LoginPage from './components/LoginPage';
-import createBrowserHistory from 'history/createBrowserHistory';
-import { logout } from './auth';
 import AuthButton from './components/AuthButton';
-
-const history = createBrowserHistory();
+import Logout from './components/Logout';
 
 export default class App extends Component {
   constructor(props) {
@@ -20,15 +17,13 @@ export default class App extends Component {
     this.setState({ loggedIn: true });
   }
 
-  handleLogout = async () => {
+  handleLogout = () => {
     this.setState({ loggedIn: false });
-    await logout();
-    history.push('/');
   }
 
   render() {
     return (
-      <Router history={history}>
+      <Router>
         <div>
           <ul>
             <li>
@@ -45,6 +40,11 @@ export default class App extends Component {
             );
           }} />
           <Route path="/genres" component={GenresPage} />
+          <Route path="/logout" render={() => {
+            return (
+              <Logout onLogout={this.handleLogout} />
+            );
+          }} />
         </div>
       </Router>
     );

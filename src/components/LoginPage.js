@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { attempt } from './../auth';
 
-export default class LoginPage extends Component {
+export default class extends Component {
   constructor(props) {
     super(props);
     this.state = {

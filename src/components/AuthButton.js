@@ -5,7 +5,7 @@ export default class extends Component {
   render() {
     if (this.props.isLoggedIn) {
       return (
-        <button onClick={this.props.onLogout}>Logout</button>
+        <Link to="/logout">Logout</Link>
       );
     } else {
       return (
