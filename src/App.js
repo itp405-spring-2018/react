@@ -11,7 +11,6 @@ export default class App extends Component {
           <ul>
             <li><Link to="/">Login</Link></li>
             <li><Link to="/genres">Genres</Link></li>
-            <li><Link to="/genres/new">Add Genre</Link></li>
           </ul>
 
           <Route exact path="/" component={LoginPage} />

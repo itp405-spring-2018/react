@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import GenreList from './GenreList';
 import { findAllGenres } from './../api';
-import { Route } from 'react-router-dom';
+import { Route, Link } from 'react-router-dom';
 import GenreForm from './GenreForm';
 
 export default class extends Component {
@@ -19,19 +19,20 @@ export default class extends Component {
 
   addGenre = (genre) => {
     this.setState({
-      genres: this.state.genres.concat(genre)
+      genres: [genre].concat(this.state.genres)
     });
   }
 
   render() {
     return (
       <div>
-        <GenreList genres={this.state.genres} />
+        <Link to="/genres/new">Add Genre</Link>
         <Route path="/genres/new" render={() => {
           return (
             <GenreForm addGenre={this.addGenre} />
           )
         }} />
+        <GenreList genres={this.state.genres} />
       </div>
     );
   }
