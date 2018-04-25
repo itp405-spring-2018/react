@@ -27,11 +27,11 @@ export default class App extends Component {
         <div>
           <ul>
             <li>
-              <AuthButton
-                isLoggedIn={this.state.loggedIn}
-                onLogout={this.handleLogout} />
+              <AuthButton isLoggedIn={this.state.loggedIn} />
             </li>
-            <li><Link to="/genres">Genres</Link></li>
+            <li>
+              <Link to="/genres">Genres</Link>
+            </li>
           </ul>
 
           <Route exact path="/" render={(props) => {
